@@ -5,44 +5,44 @@ using UnityEngine;
 public class URLClickHandler : MonoBehaviour
 {
     [SerializeField]
-    private string url; // Inspector에서 지정할 URL
+    private string url; // URL to be specified in the Inspector
 
     private Camera arCamera;
     private float lastTouchTime;
-    private const float doubleClickTimeThreshold = 0.3f; // 더블 클릭 감지 시간 임계값
+    private const float doubleClickTimeThreshold = 0.3f; // Double click time threshold for detection
 
     private void Start()
     {
-        // AR 카메라 참조
+        // Reference the AR camera
         arCamera = Camera.main;
     }
 
     private void Update()
     {
-        // 스크린 터치 입력 확인
+        // Check for screen touch input
         if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
         {
             Touch touch = Input.GetTouch(0);
 
-            // 터치 위치로 레이캐스트 발사
+            // Shoot a raycast from the touch position
             Ray ray = arCamera.ScreenPointToRay(touch.position);
             RaycastHit hit;
 
-            // 레이캐스트와 충돌한 오브젝트 확인
+            // Check for objects hit by the raycast
             if (Physics.Raycast(ray, out hit))
             {
-                // 충돌한 오브젝트가 큐브인 경우
+                // If the hit object is a cube
                 if (hit.collider.gameObject == gameObject)
                 {
-                    // 현재 터치 시간과 마지막 터치 시간의 차이 계산
+                    // Calculate the time difference between the current touch and the last touch
                     float touchTime = Time.time;
                     float timeSinceLastTouch = touchTime - lastTouchTime;
                     lastTouchTime = touchTime;
 
-                    // 더블 클릭 감지
+                    // Detect double click
                     if (timeSinceLastTouch <= doubleClickTimeThreshold)
                     {
-                        // Inspector에서 지정한 URL로 이동
+                        // Open the specified URL from the Inspector
                         Application.OpenURL(url);
                     }
                 }

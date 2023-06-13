@@ -12,7 +12,7 @@ public class PinchScale : MonoBehaviour
             Touch touch0 = Input.GetTouch(0);
             Touch touch1 = Input.GetTouch(1);
 
-            // 터치 입력이 해당 객체와 충돌하는지 확인
+            // Check if touch input is colliding with the object
             if (IsTouchCollidingWithObject(touch0) && IsTouchCollidingWithObject(touch1))
             {
                 if (touch1.phase == TouchPhase.Began)
@@ -36,7 +36,7 @@ public class PinchScale : MonoBehaviour
         Ray ray = Camera.main.ScreenPointToRay(touch.position);
         RaycastHit hit;
 
-        // Box Collider와 충돌하는지 확인
+        // Check for collision with Box Collider
         if (Physics.Raycast(ray, out hit))
         {
             if (hit.collider.gameObject == gameObject)

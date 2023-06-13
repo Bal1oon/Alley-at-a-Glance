@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class FloatingEffect : MonoBehaviour
 {
-    public float floatSpeed = 1.0f; // 부동 속도
-    public float floatHeight = 0.5f; // 부동 높이
-    public bool moveUpFirst = true; // 위로 먼저 움직일지 여부
+    public float floatSpeed = 1.0f; // Floating speed
+    public float floatHeight = 0.5f; // Floating height
+    public bool moveUpFirst = true; // Whether to move up first
 
     private Vector3 startPosition;
     private bool movingUp;
@@ -19,7 +19,7 @@ public class FloatingEffect : MonoBehaviour
 
     private void Update()
     {
-        // 오브젝트를 위아래로 부동시킴
+        // Float the object up and down
         float floatingOffset = Mathf.Sin(Time.time * floatSpeed) * floatHeight;
 
         if (movingUp)
@@ -28,7 +28,7 @@ public class FloatingEffect : MonoBehaviour
         Vector3 floatOffset = new Vector3(0, floatingOffset, 0);
         transform.position = startPosition + floatOffset;
 
-        // 부동 방향 전환을 위한 체크
+        // Check for direction change
         if (floatingOffset <= 0.01f)
             movingUp = !movingUp;
     }

@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PinchScaleChild : MonoBehaviour
 {
-    public GameObject targetObject; // PinchScale이 적용될 대상 자식 오브젝트
+    public GameObject targetObject; // The child object to which PinchScale will be applied
 
     private float initialDistance;
     private Vector3 initialScale;
@@ -14,10 +14,10 @@ public class PinchScaleChild : MonoBehaviour
             Touch touch0 = Input.GetTouch(0);
             Touch touch1 = Input.GetTouch(1);
 
-            // 터치 입력이 해당 객체와 충돌하는지 확인
+            // Check if touch input is colliding with the object
             if (IsTouchCollidingWithObject(touch0) && IsTouchCollidingWithObject(touch1))
             {
-                // 대상 자식 오브젝트의 스케일 변경
+                // Scale change for the target child object
                 if (touch1.phase == TouchPhase.Began)
                 {
                     initialDistance = Vector2.Distance(touch0.position, touch1.position);
@@ -39,7 +39,7 @@ public class PinchScaleChild : MonoBehaviour
         Ray ray = Camera.main.ScreenPointToRay(touch.position);
         RaycastHit hit;
 
-        // A 객체의 콜라이더와 충돌하는지 확인
+        // Check for collision with the collider of object A
         if (Physics.Raycast(ray, out hit))
         {
             if (hit.collider.gameObject == gameObject)

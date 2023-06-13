@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class DoubleTapRotate : MonoBehaviour
 {
-    public Vector3 rotationAxis = Vector3.up; // Inspector에서 회전 축을 선택할 수 있게 합니다.
-    public float rotationSpeed = 90f; // Inspector에서 회전 속도를 조정할 수 있게 합니다.
+    public Vector3 rotationAxis = Vector3.up; // Allows selecting the rotation axis in the Inspector
+    public float rotationSpeed = 90f; // Allows adjusting the rotation speed in the Inspector
 
     private bool isRotating = false;
 
@@ -13,7 +13,7 @@ public class DoubleTapRotate : MonoBehaviour
     {
         if (Input.touchCount == 2 && Input.GetTouch(0).phase == TouchPhase.Began && Input.GetTouch(1).phase == TouchPhase.Began)
         {
-            // 두 개의 터치로 인식되면 회전 시작
+            // Start rotation when two touches are recognized
             if (!isRotating)
             {
                 isRotating = true;
@@ -22,14 +22,14 @@ public class DoubleTapRotate : MonoBehaviour
         }
     }
 
-    private System.Collections.IEnumerator RotateObject()
+    private IEnumerator RotateObject()
     {
         float elapsedTime = 0f;
         Quaternion startingRotation = transform.rotation;
 
         while (elapsedTime < 2f)
         {
-            // 회전 속도에 따라 객체를 회전시킵니다.
+            // Rotate the object based on the rotation speed
             float rotationAmount = rotationSpeed * Time.deltaTime;
             Quaternion rotation = Quaternion.AngleAxis(rotationAmount, rotationAxis);
             transform.rotation = rotation * transform.rotation;
@@ -38,9 +38,8 @@ public class DoubleTapRotate : MonoBehaviour
             yield return null;
         }
 
-        // 회전이 완료되면 회전 종료
+        // End rotation when completed
         isRotating = false;
-        transform.rotation = startingRotation; // 회전 완료 후 초기 회전 상태로 돌아갑니다.
+        transform.rotation = startingRotation; // Return to the initial rotation state after the rotation is completed
     }
 }
-
